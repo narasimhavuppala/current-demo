@@ -6,6 +6,10 @@
 		transaction-type="RESOURCE_LOCAL">
 		<class>com.jpa.model.Student</class>
 		<class>com.jpa.model.PersonDetails</class>
+		<class>com.jpa.model.Department</class>
+		<class>com.jpa.model.inheritance.Bike</class>
+		<class>com.jpa.model.inheritance.Car</class>
+		<class>com.jpa.model.inheritance.Vehicle</class>
 
 
 

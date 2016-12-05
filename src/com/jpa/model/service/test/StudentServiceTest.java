@@ -1,6 +1,10 @@
 package com.jpa.model.service.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Calendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,8 +16,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.jpa.model.Department;
 import com.jpa.model.Student;
 import com.jpa.model.service.StudentService;
+import com.jpa.util.Grade;
 
 public class StudentServiceTest {
 	
@@ -58,6 +64,16 @@ public class StudentServiceTest {
 		objSt.setAge(34);
 		objSt.setStudentname("Laxman");
 		objSt.setAddress("Hyd");
+		objSt.setDob(Calendar.getInstance());
+		objSt.setGrade(Grade.EXCELLENT);
+		
+		Department dept=new Department();
+		dept.setDepartmentHead("MATHS");
+		dept.setDepartmentName("Ramu");
+		objSt.setDepartment(dept);
+		
+		
+		
 		Student objStudent=objStudentService.createStudent(objSt);
 		if(objStudent.getId() > 0){
 			assertTrue(true);
@@ -87,7 +103,8 @@ public class StudentServiceTest {
 	public void testFindStudentById_DQ() {
 		StudentService objStudentService=new StudentService(em);
 		Student objStudent=objStudentService.findStudentById_DQ(1);
-		assertNotNull(objStudent);
+		
+		assertNotNull(objStudent.getDepartment());
 	}
 
 	@Test
