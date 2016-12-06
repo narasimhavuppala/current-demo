@@ -7,9 +7,11 @@
 		<class>com.jpa.model.Student</class>
 		<class>com.jpa.model.PersonDetails</class>
 		<class>com.jpa.model.Department</class>
-		<class>com.jpa.model.inheritance.Bike</class>
+		 
+		 <class>com.jpa.model.inheritance.Bike</class>
 		<class>com.jpa.model.inheritance.Car</class>
 		<class>com.jpa.model.inheritance.Vehicle</class>
+		<shared-cache-mode>ALL</shared-cache-mode>
 
 
 
@@ -20,8 +22,6 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<!-- <property name="javax.persistence.schema-generation.database.action" 
 				value="drop-and-create"/> -->
-			<property name="javax.persistence.schema-generation.database.action"
-				value="none" />
 			<property name="javax.persistence.schema-generation.scripts.action"
 				value="drop-and-create" />
 
@@ -33,6 +33,7 @@
 				value="MYSQL" />
 
 			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
 
 		</properties>

@@ -4,7 +4,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,11 +23,14 @@ import com.jpa.model.Student;
 import com.jpa.model.service.StudentService;
 import com.jpa.util.Grade;
 
+
+
+
 public class StudentServiceTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	
+	int studentId;
 	
 	
 
@@ -70,11 +75,32 @@ public class StudentServiceTest {
 		Department dept=new Department();
 		dept.setDepartmentHead("MATHS");
 		dept.setDepartmentName("Ramu");
-		objSt.setDepartment(dept);
+		
+
+		Department dept2=new Department();
+		dept2.setDepartmentHead("TECH");
+		dept2.setDepartmentName("Sattheesh");
+		List<Department> list=new ArrayList<>();
+		list.add(dept);
+		list.add(dept2);
+		objSt.setDepartment(list);
+		
+		List<String> certificates=new ArrayList<>();
+		certificates.add("Java");
+		certificates.add("JPA");
+		certificates.add("BPM");
+		objSt.setCertifications(certificates);
+		
+		
+		
 		
 		
 		
 		Student objStudent=objStudentService.createStudent(objSt);
+		studentId=objSt.getId();
+		//emf.getCache().evictAll();
+		//emf.getCache().evict(Student.class);
+		System.out.println("Cache=" +emf.getCache().contains(Student.class, objSt.getId()));
 		if(objStudent.getId() > 0){
 			assertTrue(true);
 		}
@@ -82,6 +108,7 @@ public class StudentServiceTest {
 			assertTrue(false);
 		}
 
+		testFindStudentById_DQ();
 	}
 
 	@Test
@@ -99,10 +126,10 @@ public class StudentServiceTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
+	//@Test
 	public void testFindStudentById_DQ() {
 		StudentService objStudentService=new StudentService(em);
-		Student objStudent=objStudentService.findStudentById_DQ(1);
+		Student objStudent=objStudentService.findStudentById_DQ(studentId);
 		
 		assertNotNull(objStudent.getDepartment());
 	}

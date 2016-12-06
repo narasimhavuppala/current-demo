@@ -1,9 +1,17 @@
 package com.jpa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,10 +19,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import com.jpa.util.Grade;
 
@@ -25,6 +37,8 @@ import com.jpa.util.Grade;
  */
 @Entity
 @NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
+@Access(AccessType.FIELD)
+@Cacheable(true)
 public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -40,21 +54,35 @@ public class Student implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Grade grade;
 	
-	//@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)	
-	private Department department;
+	@OneToMany(cascade=CascadeType.PERSIST,fetch=FetchType.EAGER)
+	//@JoinColumn(name="Student_dept_Id", referencedColumnName="id")
+	//@JoinTable()
+	private List<Department> department;
+	
+	@Basic(fetch=FetchType.EAGER,optional=false)
+	private int phoneNumber;
+	
+	@Version
+	private Long version;
+	
+	@ElementCollection(fetch=FetchType.LAZY)
+	@CollectionTable(name="ST_CERT",joinColumns={@JoinColumn(name="student_cert_id")})
+    private List<String> certifications;
+
 
 	
-	public Department getDepartment() {
+	public List<Department> getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(Department department) {
+	public void setDepartment(List<Department> department) {
 		this.department = department;
 	}
 
 	private int age;
 
 	public Calendar getDob() {
+		//dob=dob+2;
 		return dob;
 	}
 
@@ -106,5 +134,25 @@ public class Student implements Serializable {
 	public void setStudentname(String studentname) {
 		this.studentname = studentname;
 	}
+
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public List<String> getCertifications() {
+		return certifications;
+	}
+
+	public void setCertifications(List<String> certifications) {
+		this.certifications = certifications;
+	}
+	
+	
+	
+	
 
 }

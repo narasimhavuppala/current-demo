@@ -14,16 +14,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  * @author Shree
+ * 
+ * Data column
+ J N     N
+ S Y	 N
+ T N	 Y
  *
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,length=10,name="MyType")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@MappedSuperclass
+//@DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,length=10,name="MyType")
 public class Vehicle {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

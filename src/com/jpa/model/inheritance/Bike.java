@@ -9,11 +9,12 @@ import javax.persistence.*;
  *
  */
 @Entity
-@DiscriminatorValue("MyBike")
+//@DiscriminatorValue("MyBike")
 public class Bike extends Vehicle implements Serializable {
 	
 	
 	//@Id
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	//private int bikeId;
 	@Column
 	private String manufacturer;

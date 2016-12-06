@@ -9,7 +9,8 @@ import javax.persistence.*;
  *
  */
 @Entity
-@DiscriminatorValue("DCAR")
+//@DiscriminatorValue("DCAR")
+@EntityListeners(value={LifecyleListener.class})
 public class Car extends Vehicle implements Serializable {
 	
 	//@Id
@@ -61,6 +62,14 @@ public class Car extends Vehicle implements Serializable {
 
 	public void setMileagge(double mileagge) {
 		this.mileagge = mileagge;
+	}
+	
+	@PrePersist
+	@PreUpdate
+	@PreRemove
+	private void callbackMethoids() throws Exception{
+		//this.getChasisNumber() =="TestChasis" throw new exception("");
+		//else
 	}
 	
 	

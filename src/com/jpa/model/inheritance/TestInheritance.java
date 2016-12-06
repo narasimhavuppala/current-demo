@@ -9,7 +9,6 @@ import javax.persistence.Persistence;
 public class TestInheritance {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		EntityManagerFactory emf=Persistence.createEntityManagerFactory("StudentORMExample");
 		EntityManager em=emf.createEntityManager();
@@ -32,7 +31,7 @@ public class TestInheritance {
 		em.persist(b);
 		em.persist(c);
 		em.getTransaction().commit();
-
+		
 	}
 
 }
